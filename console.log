@@ -1,0 +1,14 @@
+function abrirEnvelope(){
+
+    console.log("Envelope clicado!");
+
+    envelope.classList.add("open");
+
+    setTimeout(()=>{
+
+        envelopeScreen.style.display = "none";
+        app.style.display = "block";
+
+    },1200);
+
+}
