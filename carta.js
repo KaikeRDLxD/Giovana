@@ -4,33 +4,70 @@ import {
     getDoc
 } from "./firebase.js";
 
-const senhaCorreta = "Churrasco1306";
-
 const passwordScreen = document.getElementById("passwordScreen");
 const envelopeScreen = document.getElementById("envelopeScreen");
 const app = document.getElementById("app");
 
-const unlockBtn = document.getElementById("unlockBtn");
 const passwordInput = document.getElementById("passwordInput");
 const passwordError = document.getElementById("passwordError");
+const unlockBtn = document.getElementById("unlockBtn");
 const envelope = document.getElementById("envelope");
 
 passwordScreen.style.display = "flex";
 envelopeScreen.style.display = "none";
 app.style.display = "none";
 
-unlockBtn.addEventListener("click", verificarSenha);
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-passwordInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") verificarSenha();
-});
+let carta = null;
 
-function verificarSenha() {
+// Carrega a carta do Firebase
+async function carregarCarta() {
 
-    if (passwordInput.value !== senhaCorreta) {
+    if (!id) {
+        passwordError.textContent = "Carta não encontrada.";
+        return false;
+    }
 
-        passwordError.textContent = "Senha incorreta ❤️";
+    try {
+
+        const snap = await getDoc(doc(db, "cartas", id));
+
+        if (!snap.exists()) {
+            passwordError.textContent = "Carta não encontrada.";
+            return false;
+        }
+
+        carta = snap.data();
+        return true;
+
+    } catch (e) {
+
+        console.error(e);
+        passwordError.textContent = "Erro ao carregar carta.";
+        return false;
+
+    }
+
+}
+
+// Verifica senha
+unlockBtn.addEventListener("click", async () => {
+
+    if (!carta) {
+
+        const ok = await carregarCarta();
+
+        if (!ok) return;
+
+    }
+
+    if (passwordInput.value !== carta.senha) {
+
+        passwordError.textContent = "❌ Senha incorreta!";
         passwordInput.value = "";
+        passwordInput.focus();
         return;
 
     }
@@ -38,111 +75,67 @@ function verificarSenha() {
     passwordScreen.style.display = "none";
     envelopeScreen.style.display = "flex";
 
-}
+});
 
-envelope.addEventListener("click", abrirEnvelope);
+passwordInput.addEventListener("keydown", e => {
 
-async function abrirEnvelope() {
+    if (e.key === "Enter")
+        unlockBtn.click();
+
+});
+
+// Envelope
+envelope.addEventListener("click", () => {
 
     criarCoracoes();
 
     envelope.classList.add("open");
 
-    setTimeout(async () => {
+    setTimeout(() => {
 
         envelopeScreen.style.display = "none";
         app.style.display = "block";
 
-        await carregarCarta();
+        document.getElementById("destino").innerText =
+            "Para: " + carta.destino + " ❤️";
 
-    },2500);
+        document.getElementById("tituloCarta").innerText =
+            carta.titulo;
 
-}
+        document.getElementById("textoCarta").innerText =
+            carta.texto;
 
-function criarCoracoes(){
+        document.getElementById("remetente").innerText =
+            "Com amor, " + carta.nome + " ❤️";
 
-    const emojis=["❤️","💖","💕","💗","💓","💞"];
+    }, 2500);
 
-    for(let i=0;i<60;i++){
+});
 
-        setTimeout(()=>{
+// Corações
+function criarCoracoes() {
 
-            const heart=document.createElement("div");
+    const emojis = ["❤️","💖","💕","💗","💓","💞"];
 
-            heart.className="heart";
+    for (let i = 0; i < 60; i++) {
 
-            heart.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+        setTimeout(() => {
 
-            heart.style.left=Math.random()*100+"vw";
+            const heart = document.createElement("div");
 
-            heart.style.fontSize=(20+Math.random()*35)+"px";
+            heart.className = "heart";
 
-            heart.style.setProperty("--x",(Math.random()*300-150)+"px");
+            heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (20 + Math.random() * 35) + "px";
+            heart.style.setProperty("--x", (Math.random() * 300 - 150) + "px");
 
             document.body.appendChild(heart);
 
-            setTimeout(()=>heart.remove(),4000);
+            setTimeout(() => heart.remove(), 4000);
 
-        },i*70);
-
-    }
-
-}
-
-async function carregarCarta(){
-
-    const params=new URLSearchParams(window.location.search);
-
-    const id=params.get("id");
-
-    if(!id){
-
-        document.getElementById("tituloCarta").innerText="Carta não encontrada";
-
-        document.getElementById("textoCarta").innerText="Nenhum ID informado.";
-
-        return;
-
-    }
-
-    try{
-
-        const referencia=doc(db,"cartas",id);
-
-        const documento=await getDoc(referencia);
-
-        if(!documento.exists()){
-
-            document.getElementById("tituloCarta").innerText="Carta não encontrada";
-
-            document.getElementById("textoCarta").innerText="Essa carta não existe.";
-
-            return;
-
-        }
-
-        const carta=documento.data();
-document.getElementById("destino").innerText =
-"Para: " + carta.destino + " ❤️";
-
-document.getElementById("tituloCarta").innerText =
-carta.titulo;
-
-document.getElementById("textoCarta").innerText =
-carta.texto;
-
-document.getElementById("remetente").innerText =
-"Com amor, " + carta.nome + " ❤️";
-
-    }
-
-    catch(e){
-
-        console.error(e);
-
-        document.getElementById("tituloCarta").innerText="Erro";
-
-        document.getElementById("textoCarta").innerText="Erro ao carregar carta.";
+        }, i * 70);
 
     }
 

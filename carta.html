@@ -6,78 +6,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Uma carta para você ❤️</title>
+<title>Uma Carta Para Você ❤️</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
 
-
 <body>
-
 
 <!-- SENHA -->
 
 <section id="passwordScreen">
 
-    <div class="loginCard">
+<div class="loginCard">
 
-        <div class="heartIcon">
-            ❤️
-        </div>
+<div class="heartIcon">❤️</div>
 
+<h1>Para Você</h1>
 
-        <h1>Para você</h1>
+<p>Digite a senha da carta.</p>
 
-        <p>Digite a senha para abrir.</p>
+<input
+id="passwordInput"
+type="password"
+placeholder="Senha">
 
+<button id="unlockBtn">
 
-        <input
-        id="passwordInput"
-        type="password"
-        placeholder="Senha">
+Abrir Carta
 
+</button>
 
-        <button id="unlockBtn">
-            Abrir Carta
-        </button>
+<span id="passwordError"></span>
 
-
-        <span id="passwordError"></span>
-
-
-    </div>
+</div>
 
 </section>
-
-
 
 <!-- ENVELOPE -->
 
 <section id="envelopeScreen">
 
-
 <div id="envelope">
-
 
 <div class="shadow"></div>
 
-
 <div class="letter">
 
-<div class="letterContent">
-
-<h2></h2>
-
-<p></p>
+<div class="letterContent"></div>
 
 </div>
-
-</div>
-
-
 
 <div class="back"></div>
 
@@ -89,69 +69,39 @@
 
 <div class="top"></div>
 
-
-<div class="waxSeal">
-
-</div>
-
+<div class="waxSeal"></div>
 
 </div>
-
 
 </section>
 
-
-
-<!-- CARTA FINAL -->
-
+<!-- CARTA -->
 
 <div id="app">
 
-
-<header>
-
-<h1>❤️ Carta de Amor</h1>
-
-</header>
-
-
-
 <div class="container">
-
 
 <main class="paper">
 
+<img
+src="img/fotoCasal.jpg"
+class="foto">
 
-<img src="img/fotoCasal.jpg" class="foto">
+<h2 id="destino"></h2>
 
+<h1 id="tituloCarta"></h1>
 
-<h3 id="destino"></h3>
+<p id="textoCarta"></p>
 
-<h1 id="tituloCarta">
-Carregando...
-</h1>
-
-<p id="textoCarta">
-Carregando carta...
-</p>
-
-<h2 id="remetente">
-Com amor ❤️
-</h2>
-
+<h3 id="remetente"></h3>
 
 </main>
 
-
 </div>
 
-
 </div>
-
-
 
 <script type="module" src="carta.js"></script>
 
 </body>
-
 </html>
