@@ -576,7 +576,7 @@ header{
 
 .paper h1{
 
-    font-size:45px;
+    font-size:65px;
 
     color:#b11226;
 
@@ -586,17 +586,26 @@ header{
 
 .paper p{
 
-    margin-top:30px;
+    
 
-    font-size:20px;
+    font-family: "Poppins", sans-serif;
+font-size: 28px;
 
-    line-height:1.8;
+    line-height: 2;
+
+    color: #4b1f2a;
+
+    text-align: justify;
+
+    margin: 40px 0;
+
+}
 
 }
 
 .paper h2{
 
-    margin-top:50px;
+    margin-top:45px;
 
     font-family:'Great Vibes',cursive;
 
@@ -816,5 +825,11 @@ opacity:1;
     font-size:18px;
 
     cursor:pointer;
+
+}#discordBtn{
+
+    background:#5865F2;
+
+    color:white;
 
 }

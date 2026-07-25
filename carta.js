@@ -4,88 +4,108 @@ import {
     getDoc
 } from "./firebase.js";
 
+// ==========================
+// ELEMENTOS
+// ==========================
+
 const passwordScreen = document.getElementById("passwordScreen");
 const envelopeScreen = document.getElementById("envelopeScreen");
 const app = document.getElementById("app");
 
+const unlockBtn = document.getElementById("unlockBtn");
 const passwordInput = document.getElementById("passwordInput");
 const passwordError = document.getElementById("passwordError");
-const unlockBtn = document.getElementById("unlockBtn");
+
 const envelope = document.getElementById("envelope");
+
+// ==========================
+// ESTADO INICIAL
+// ==========================
 
 passwordScreen.style.display = "flex";
 envelopeScreen.style.display = "none";
 app.style.display = "none";
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-
+let senhaCorreta = "";
 let carta = null;
 
-// Carrega a carta do Firebase
+// ==========================
+// CARREGAR CARTA
+// ==========================
+
 async function carregarCarta() {
 
+    const params = new URLSearchParams(window.location.search);
+
+    const id = params.get("id");
+
     if (!id) {
-        passwordError.textContent = "Carta não encontrada.";
-        return false;
-    }
 
-    try {
-
-        const snap = await getDoc(doc(db, "cartas", id));
-
-        if (!snap.exists()) {
-            passwordError.textContent = "Carta não encontrada.";
-            return false;
-        }
-
-        carta = snap.data();
-        return true;
-
-    } catch (e) {
-
-        console.error(e);
-        passwordError.textContent = "Erro ao carregar carta.";
-        return false;
+        alert("Carta não encontrada.");
+        return;
 
     }
+
+    const referencia = doc(db, "cartas", id);
+
+    const documento = await getDoc(referencia);
+
+    if (!documento.exists()) {
+
+        alert("Carta não encontrada.");
+        return;
+
+    }
+
+    carta = documento.data();
+
+    senhaCorreta = carta.senha;
 
 }
 
-// Verifica senha
-unlockBtn.addEventListener("click", async () => {
+await carregarCarta();
 
-    if (!carta) {
+// ==========================
+// SENHA
+// ==========================
 
-        const ok = await carregarCarta();
+unlockBtn.addEventListener("click", verificarSenha);
 
-        if (!ok) return;
+passwordInput.addEventListener("keydown", (e) => {
+
+    if (e.key === "Enter") {
+
+        verificarSenha();
 
     }
 
-    if (passwordInput.value !== carta.senha) {
+});
 
-        passwordError.textContent = "❌ Senha incorreta!";
+function verificarSenha() {
+
+    if (passwordInput.value !== senhaCorreta) {
+
+        passwordError.textContent = "Senha incorreta ❤️";
+
         passwordInput.value = "";
-        passwordInput.focus();
+
         return;
 
     }
 
     passwordScreen.style.display = "none";
+
     envelopeScreen.style.display = "flex";
 
-});
+}
 
-passwordInput.addEventListener("keydown", e => {
+// ==========================
+// ENVELOPE
+// ==========================
 
-    if (e.key === "Enter")
-        unlockBtn.click();
+envelope.addEventListener("click", abrirEnvelope);
 
-});
-
-// Envelope
-envelope.addEventListener("click", () => {
+function abrirEnvelope() {
 
     criarCoracoes();
 
@@ -94,6 +114,7 @@ envelope.addEventListener("click", () => {
     setTimeout(() => {
 
         envelopeScreen.style.display = "none";
+
         app.style.display = "block";
 
         document.getElementById("destino").innerText =
@@ -110,12 +131,22 @@ envelope.addEventListener("click", () => {
 
     }, 2500);
 
-});
+}
 
-// Corações
+// ==========================
+// CORAÇÕES
+// ==========================
+
 function criarCoracoes() {
 
-    const emojis = ["❤️","💖","💕","💗","💓","💞"];
+    const emojis = [
+        "❤️",
+        "💖",
+        "💕",
+        "💗",
+        "💓",
+        "💞"
+    ];
 
     for (let i = 0; i < 60; i++) {
 
@@ -125,15 +156,27 @@ function criarCoracoes() {
 
             heart.className = "heart";
 
-            heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.innerHTML =
+                emojis[Math.floor(Math.random() * emojis.length)];
 
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = (20 + Math.random() * 35) + "px";
-            heart.style.setProperty("--x", (Math.random() * 300 - 150) + "px");
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (20 + Math.random() * 35) + "px";
+
+            heart.style.setProperty(
+                "--x",
+                (Math.random() * 300 - 150) + "px"
+            );
 
             document.body.appendChild(heart);
 
-            setTimeout(() => heart.remove(), 4000);
+            setTimeout(() => {
+
+                heart.remove();
+
+            }, 4000);
 
         }, i * 70);
 

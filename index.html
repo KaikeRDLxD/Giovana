@@ -1,19 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Editor de Carta ❤️</title>
+<title>Carta de Amor ❤️</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
+
+<!-- ==========================
+SENHA INICIAL
+========================== -->
+
+<section id="passwordScreen">
+
+<div class="loginCard">
+
+<div class="heartIcon">
+❤️
+</div>
+
+<h1>Para meu Amor</h1>
+
+<p>Digite a senha para entrar.</p>
+
+<input
+id="passwordInput"
+type="password"
+placeholder="Senha">
+
+<button id="unlockBtn">
+
+Abrir
+
+</button>
+
+<span id="passwordError"></span>
+
+</div>
+
+</section>
+
+<!-- ==========================
+EDITOR
+========================== -->
 
 <div id="app">
 
@@ -29,13 +67,24 @@
 
 <h2>Editor</h2>
 
-<input id="nomeRemetente" type="text" placeholder="Seu nome">
+<input
+id="nomeRemetente"
+type="text"
+placeholder="Seu nome">
 
-<input id="nomeDestino" type="text" placeholder="Nome da pessoa">
+<input
+id="nomeDestino"
+type="text"
+placeholder="Nome da pessoa">
 
-<input id="tituloCarta" type="text" placeholder="Título da carta">
+<input
+id="tituloCarta"
+type="text"
+placeholder="Título">
 
-<textarea id="textoCarta" placeholder="Escreva sua carta..."></textarea>
+<textarea
+id="textoCarta"
+placeholder="Escreva sua carta..."></textarea>
 
 <button class="save">
 
@@ -47,7 +96,9 @@
 
 <main class="paper">
 
-<img src="img/fotoCasal.jpg" class="foto">
+<img
+src="img/fotoCasal.jpg"
+class="foto">
 
 <h2 id="previewDestino">
 
@@ -63,7 +114,7 @@ Título da Carta
 
 <p id="previewTexto">
 
-Sua carta aparecerá aqui...
+Sua carta aparecerá aqui enquanto você escreve...
 
 </p>
 
@@ -76,59 +127,70 @@ Com amor ❤️
 </main>
 
 </div>
-
-</div>
+<!-- ==========================
+POPUP SENHA DA CARTA
+========================== -->
 
 <div id="senhaCartaPopup">
 
-<div class="loginCard">
+    <div class="loginCard">
 
-<div class="heartIcon">❤️</div>
+        <div class="heartIcon">
+            ❤️
+        </div>
 
-<h2>Criar senha</h2>
+        <h2>Senha da Carta</h2>
 
-<p>Quem receber esta carta precisará dessa senha.</p>
+        <p>Crie uma senha para quem receber a carta.</p>
 
-<input
-id="senhaCartaInput"
-type="password"
-placeholder="Digite a senha">
+        <input
+            id="senhaCartaInput"
+            type="password"
+            placeholder="Digite a senha">
 
-<button id="confirmarSenhaCarta">
+        <button id="confirmarSenhaCarta">
 
-Salvar Carta ❤️
+            Salvar Carta ❤️
 
-</button>
+        </button>
+
+    </div>
 
 </div>
 
-</div>
+<!-- ==========================
+POPUP LINK
+========================== -->
 
 <div id="savePopup">
 
-<div class="popupBox">
+    <div class="popupBox">
 
-<h2>❤️ Carta salva!</h2>
+        <h2>❤️ Carta salva!</h2>
 
-<p>Compartilhe o link abaixo.</p>
+        <p>Compartilhe este link.</p>
 
-<button id="copyBtn">
+        <button id="copyBtn">
 
-📋 Copiar Link
+            📋 Copiar Link
 
+        </button>
+
+        <button id="whatsappBtn">
+
+            💚 Compartilhar WhatsApp
+
+        </button>
+
+        <button id="closePopup">
+
+            Fechar
+
+        </button>
+<button id="discordBtn">
+🎮 Compartilhar Discord
 </button>
-
-<button id="whatsappBtn">
-
-💚 Compartilhar WhatsApp
-
-</button>
-
-<button id="closePopup">
-
-Fechar
-
-</button>
+    </div>
 
 </div>
 
@@ -137,4 +199,5 @@ Fechar
 <script type="module" src="script.js"></script>
 
 </body>
+
 </html>
