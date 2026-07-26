@@ -199,43 +199,64 @@ if (btnPDF) {
 // ==========================
 async function gerarPDF() {
 
-    const botao = document.getElementById("downloadPDF");
+    const { jsPDF } = window.jspdf;
 
-    botao.disabled = true;
-    botao.innerText = "Gerando PDF...";
+    const carta = document.querySelector(".paper");
 
-    try {
+    // Guarda os estilos atuais
+    const estiloOriginal = {
+        maxHeight: carta.style.maxHeight,
+        overflow: carta.style.overflow,
+        height: carta.style.height
+    };
 
-        const { jsPDF } = window.jspdf;
+    // Expande toda a carta
+    carta.style.maxHeight = "none";
+    carta.style.height = "auto";
+    carta.style.overflow = "visible";
 
-        const elemento = document.querySelector(".paper");
+    // Aguarda o navegador redesenhar
+    await new Promise(resolve => setTimeout(resolve, 200));
 
-        const canvas = await html2canvas(elemento,{
-            scale:2,
-            useCORS:true,
-            backgroundColor:"#ffffff"
-        });
+    const canvas = await html2canvas(carta, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff"
+    });
 
-        const img = canvas.toDataURL("image/png");
+    // Volta ao normal
+    carta.style.maxHeight = estiloOriginal.maxHeight;
+    carta.style.height = estiloOriginal.height;
+    carta.style.overflow = estiloOriginal.overflow;
 
-        const pdf = new jsPDF("p","mm","a4");
+    const pdf = new jsPDF("p", "mm", "a4");
 
-        const largura = 210;
-        const altura = canvas.height * largura / canvas.width;
+    const imgWidth = 210;
+    const pageHeight = 297;
 
-        pdf.addImage(img,"PNG",0,0,largura,altura);
+    const imgHeight = canvas.height * imgWidth / canvas.width;
 
-        pdf.save("Carta de Amor.pdf");
+    const imgData = canvas.toDataURL("image/png");
 
-    } catch(err){
+    let heightLeft = imgHeight;
+    let position = 0;
 
-        console.error(err);
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
 
-        alert("Não foi possível gerar o PDF.");
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+
+        position = heightLeft - imgHeight;
+
+        pdf.addPage();
+
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+
+        heightLeft -= pageHeight;
 
     }
 
-    botao.disabled = false;
-    botao.innerText = "📥 Baixar Carta em PDF";
+    pdf.save("Carta de Amor.pdf");
 
 }
