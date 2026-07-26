@@ -3,30 +3,28 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>❤️ Carta de Amor</title>
+    <title>❤️ Carta de Amor</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
 <!-- ==========================
-SENHA DA CARTA
+SENHA
 ========================== -->
 
 <section id="passwordScreen">
 
     <div class="loginCard">
 
-        <div class="heartIcon">
-            ❤️
-        </div>
+        <div class="heartIcon">❤️</div>
 
         <h1>Uma Carta Para Você</h1>
 
@@ -38,9 +36,7 @@ SENHA DA CARTA
             placeholder="Senha">
 
         <button id="unlockBtn">
-
             Abrir Carta
-
         </button>
 
         <span id="passwordError"></span>
@@ -60,21 +56,14 @@ ENVELOPE
         <div class="shadow"></div>
 
         <div class="letter">
-
             <div class="letterContent"></div>
-
         </div>
 
         <div class="back"></div>
-
         <div class="left"></div>
-
         <div class="right"></div>
-
         <div class="bottom"></div>
-
         <div class="top"></div>
-
         <div class="waxSeal"></div>
 
     </div>
@@ -93,33 +82,41 @@ CARTA
 
             <img
                 src="img/fotoCasal.jpg"
-                class="foto">
+                class="foto"
+                alt="Foto do casal">
 
             <h2 id="destino"></h2>
 
             <h1 id="tituloCarta"></h1>
 
-<div id="textoCarta" class="textoCarta"></div>
+            <div id="textoCarta" class="textoCarta"></div>
+
             <h3 id="remetente"></h3>
 
         </main>
-<div class="acoesCarta">
 
-    <button id="downloadPDF">
+    </div>
 
-        📥 Baixar Carta em PDF
+    <div class="acoesCarta">
 
-    </button>
+        <button id="downloadPDF">
+            📥 Baixar Carta em PDF
+        </button>
 
-</div>
     </div>
 
 </div>
 
-<script type="module" src="carta.js"></script>
+<!-- Bibliotecas -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Seu JavaScript -->
+
+<script type="module" src="carta.js"></script>
+
 </body>
+
 </html>

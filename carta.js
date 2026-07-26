@@ -136,7 +136,6 @@ function abrirEnvelope() {
 // ==========================
 // CORAÇÕES
 // ==========================
-
 function criarCoracoes() {
 
     const emojis = [
@@ -182,50 +181,61 @@ function criarCoracoes() {
 
     }
 
-}async function gerarPDF(){
+}
+ // ==========================
+// BOTÃO PDF
+// ==========================
 
-    const { jsPDF } = window.jspdf;
+const btnPDF = document.getElementById("downloadPDF");
 
-    const carta = document.querySelector(".paper");
+if (btnPDF) {
 
-    const canvas = await html2canvas(carta,{
+    btnPDF.addEventListener("click", gerarPDF);
 
-        scale:2,
+}
 
-        useCORS:true,
+// ==========================
+// GERAR PDF
+// ==========================
+async function gerarPDF() {
 
-        backgroundColor:"#ffffff"
+    const botao = document.getElementById("downloadPDF");
 
-    });
+    botao.disabled = true;
+    botao.innerText = "Gerando PDF...";
 
-    const imgData = canvas.toDataURL("image/png");
+    try {
 
-    const pdf = new jsPDF("p","mm","a4");
+        const { jsPDF } = window.jspdf;
 
-    const largura = 210;
+        const elemento = document.querySelector(".paper");
 
-    const altura = canvas.height * largura / canvas.width;
+        const canvas = await html2canvas(elemento,{
+            scale:2,
+            useCORS:true,
+            backgroundColor:"#ffffff"
+        });
 
-    let alturaRestante = altura;
+        const img = canvas.toDataURL("image/png");
 
-    let posicao = 0;
+        const pdf = new jsPDF("p","mm","a4");
 
-    pdf.addImage(imgData,"PNG",0,posicao,largura,altura);
+        const largura = 210;
+        const altura = canvas.height * largura / canvas.width;
 
-    alturaRestante -= 297;
+        pdf.addImage(img,"PNG",0,0,largura,altura);
 
-    while(alturaRestante > 0){
+        pdf.save("Carta de Amor.pdf");
 
-        posicao = alturaRestante - altura;
+    } catch(err){
 
-        pdf.addPage();
+        console.error(err);
 
-        pdf.addImage(imgData,"PNG",0,posicao,largura,altura);
-
-        alturaRestante -= 297;
+        alert("Não foi possível gerar o PDF.");
 
     }
 
-    pdf.save("Carta de Amor.pdf");
+    botao.disabled = false;
+    botao.innerText = "📥 Baixar Carta em PDF";
 
 }
