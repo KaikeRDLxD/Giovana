@@ -99,17 +99,27 @@ CARTA
 
             <h1 id="tituloCarta"></h1>
 
-            <p id="textoCarta"></p>
-
+<div id="textoCarta" class="textoCarta"></div>
             <h3 id="remetente"></h3>
 
         </main>
+<div class="acoesCarta">
 
+    <button id="downloadPDF">
+
+        📥 Baixar Carta em PDF
+
+    </button>
+
+</div>
     </div>
 
 </div>
 
 <script type="module" src="carta.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>

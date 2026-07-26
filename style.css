@@ -47,7 +47,7 @@
     width:420px;
     height:280px;
 
-    transform-style:preserve-3d;
+    transform-style:preserve-3d; 
 
     transition:1s;
 
@@ -489,16 +489,16 @@ header{
 .container{
 
     display:flex;
-
     gap:40px;
-
     padding:40px;
+
+    align-items:flex-start;
 
 }
 
 .sidebar{
 
-    width:320px;
+    width: 550px;
 
     background:white;
 
@@ -514,7 +514,7 @@ header{
 .sidebar select,
 .sidebar textarea{
 
-    width:100%;
+    width:90%;
 
     margin-top:15px;
 
@@ -530,7 +530,7 @@ header{
 
 .sidebar textarea{
 
-    height:180px;
+    height:100px;
 
     resize:none;
 
@@ -558,6 +558,8 @@ header{
 
 }
 
+
+
 .paper{
 
     flex:1;
@@ -566,23 +568,30 @@ header{
 
     border-radius:25px;
 
-    padding:50px;
+    padding:40px;
 
     box-shadow:0 20px 60px rgba(0,0,0,.25);
 
-    text-align:center;
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    max-width:900px;
+
+    width:100%;
+
+    height:85vh;
+
+    max-height:85vh;
+
+    overflow:hidden;
+
+    margin:auto;
 
 }
 
-.paper h1{
-
-    font-size:65px;
-
-    color:#b11226;
-
-    font-family:'Great Vibes',cursive;
-
-}
 
 .paper p{
 
@@ -601,7 +610,6 @@ font-size: 28px;
 
 }
 
-}
 
 .paper h2{
 
@@ -831,5 +839,187 @@ opacity:1;
     background:#5865F2;
 
     color:white;
+
+}#previewTexto,
+#textoCarta{
+
+    width:100%;
+
+    flex:1;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding-right:10px;
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:28px;
+
+    line-height:2;
+
+    color:#4b1f2a;
+
+    text-align:justify;
+
+    word-break:break-word;
+
+    overflow-wrap:break-word;
+
+    white-space:pre-wrap;
+
+}#previewTexto::-webkit-scrollbar,
+#textoCarta::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+#previewTexto::-webkit-scrollbar-thumb,
+#textoCarta::-webkit-scrollbar-thumb{
+
+    background:#d6336c;
+
+    border-radius:10px;
+
+}
+
+#previewTexto::-webkit-scrollbar-track,
+#textoCarta::-webkit-scrollbar-track{
+
+    background:#f3f3f3;
+
+}@media (max-width:900px){
+
+    header{
+
+        padding:20px;
+
+        justify-content:center;
+
+    }
+
+    .container{
+
+        flex-direction:column;
+
+        padding:20px;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        box-sizing:border-box;
+
+    }
+
+    .paper{
+
+        width:100%;
+
+        box-sizing:border-box;
+
+        max-height:75vh;
+
+        padding:25px;
+
+    }
+
+    .paper h1{
+
+        font-size:42px;
+
+    }
+
+    .paper h2{
+
+        font-size:34px;
+
+    }
+
+    #previewTexto,
+#textoCarta{
+
+        font-size:18px;
+
+        line-height:1.8;
+
+    }
+
+    .foto{
+
+        width:180px;
+
+    }
+
+}@media (max-width:480px){
+
+    .paper{
+
+        padding:18px;
+
+        border-radius:18px;
+
+    }
+
+    .paper h1{
+
+        font-size:34px;
+
+    }
+
+    .paper h2{
+
+        font-size:28px;
+
+    }
+
+    #previewTexto,
+#textoCarta{
+
+        font-size:16px;
+
+    }
+
+}.acoesCarta{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:35px 0;
+
+}
+
+#downloadPDF{
+
+    background:#d6336c;
+
+    color:white;
+
+    border:none;
+
+    padding:15px 35px;
+
+    border-radius:40px;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+}
+
+#downloadPDF:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
 
 }

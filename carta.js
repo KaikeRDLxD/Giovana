@@ -182,4 +182,50 @@ function criarCoracoes() {
 
     }
 
+}async function gerarPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const carta = document.querySelector(".paper");
+
+    const canvas = await html2canvas(carta,{
+
+        scale:2,
+
+        useCORS:true,
+
+        backgroundColor:"#ffffff"
+
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p","mm","a4");
+
+    const largura = 210;
+
+    const altura = canvas.height * largura / canvas.width;
+
+    let alturaRestante = altura;
+
+    let posicao = 0;
+
+    pdf.addImage(imgData,"PNG",0,posicao,largura,altura);
+
+    alturaRestante -= 297;
+
+    while(alturaRestante > 0){
+
+        posicao = alturaRestante - altura;
+
+        pdf.addPage();
+
+        pdf.addImage(imgData,"PNG",0,posicao,largura,altura);
+
+        alturaRestante -= 297;
+
+    }
+
+    pdf.save("Carta de Amor.pdf");
+
 }
